@@ -1,0 +1,464 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#681b3c">
+  <title>WaLizz Textiles and Fashion</title>
+  <style>
+    :root {
+      --wine: #681b3c;
+      --gold: #d5aa55;
+      --cream: #fffaf2;
+      --ink: #29212a;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+    }
+
+    header {
+      background: var(--wine);
+      color: white;
+      padding: 22px 16px;
+      text-align: center;
+      border-bottom: 4px solid var(--gold);
+    }
+
+    header h1 { margin: 0 0 8px; font-size: 27px; }
+    header p { margin: 0; }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      padding: 13px;
+      background: white;
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      box-shadow: 0 2px 8px #0000000d;
+    }
+
+    button, .contact-link {
+      cursor: pointer;
+      border: 0;
+      border-radius: 7px;
+      padding: 11px 15px;
+      font-weight: bold;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    nav button { background: #f2e6eb; color: var(--wine); }
+    button.primary, .contact-link {
+      background: var(--wine);
+      color: white;
+    }
+
+    .hero {
+      padding: 48px 20px;
+      text-align: center;
+      background: linear-gradient(135deg, #f5e1d5, #f7edcf);
+    }
+
+    .hero h2 { font-size: 34px; margin: 0 0 12px; }
+    .hero p { max-width: 520px; margin: 0 auto 20px; line-height: 1.6; }
+
+    main { max-width: 1100px; margin: auto; padding: 24px 16px; }
+
+    .tools {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 22px;
+    }
+
+    input, select, textarea {
+      padding: 12px;
+      border: 1px solid #d8cbd1;
+      border-radius: 7px;
+      font: inherit;
+      min-width: 0;
+    }
+
+    .tools input { flex: 1; min-width: 180px; }
+    .tools select { flex: 1; min-width: 160px; }
+
+    .section-title { margin: 28px 0 16px; }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+    }
+
+    .product {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 3px 14px #38162612;
+      border: 1px solid #eee3e8;
+    }
+
+    .product img {
+      width: 100%;
+      height: 190px;
+      object-fit: cover;
+      background: #eee;
+    }
+
+    .product-info { padding: 15px; }
+    .product h3 { margin: 5px 0 8px; }
+    .category { color: #765565; font-size: 13px; }
+    .price { color: var(--wine); font-size: 20px; font-weight: bold; }
+    .product-info button { width: 100%; margin-top: 8px; }
+
+    .panel {
+      background: white;
+      border: 1px solid #eadce3;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 28px 0;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 12px;
+    }
+
+    .form-grid input, .form-grid select { width: 100%; }
+
+    .admin-product {
+      padding: 12px 0;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      gap: 10px;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .notice {
+      padding: 12px;
+      background: #fff3d8;
+      border-radius: 8px;
+      line-height: 1.5;
+      font-size: 14px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 28px 16px;
+      background: var(--wine);
+      color: white;
+      line-height: 1.8;
+    }
+
+    .hidden { display: none !important; }
+
+    @media (max-width: 500px) {
+      .hero h2 { font-size: 28px; }
+      header h1 { font-size: 23px; }
+      .products { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+      .product img { height: 135px; }
+      .product-info { padding: 10px; }
+      .product-info button { padding: 10px 6px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>WaLizz Textiles and Fashion</h1>
+  <p>Beautiful Fabrics • Quality Materials • Expert Tailoring</p>
+</header>
+
+<nav>
+  <button onclick="showStore()">Home & Shop</button>
+  <button onclick="showServices()">Tailoring</button>
+  <button onclick="showContact()">Contact Us</button>
+  <button onclick="showAdmin()">Admin</button>
+</nav>
+
+<section class="hero">
+  <h2>Discover Your Perfect Fabric</h2>
+  <p>
+    From beautiful African vitenge to school uniform materials,
+    sewing accessories and tailored outfits, find what you need at WaLizz.
+  </p>
+  <button class="primary" onclick="showStore()">Explore Our Products</button>
+</section>
+
+<main>
+  <section id="store">
+    <h2 class="section-title">Our Collection</h2>
+    <div class="tools">
+      <input id="search" placeholder="Search fabrics, clothes..." oninput="renderProducts()">
+      <select id="category" onchange="renderProducts()">
+        <option value="All">All categories</option>
+        <option>Vitenge - Cotton</option>
+        <option>Vitenge - Normal</option>
+        <option>School Uniform Materials</option>
+        <option>Other Materials</option>
+        <option>Sewing Notions</option>
+        <option>Ready-made Clothes</option>
+      </select>
+    </div>
+    <div class="products" id="products"></div>
+  </section>
+
+  <section id="services" class="panel hidden">
+    <h2>Our Tailoring Services</h2>
+    <p>Need a custom outfit? Contact us to discuss your design,
+       measurements, fabric and quotation.</p>
+    <button class="primary" onclick="contactWhatsApp('Hello WaLizz! I would like to ask about tailoring services.')">
+      Ask About Tailoring
+    </button>
+  </section>
+
+  <section id="contact" class="panel hidden">
+    <h2>Contact WaLizz</h2>
+    <p>Have a question or want to place an order?</p>
+    <p id="contactPhone">Phone and WhatsApp: Set your number in the code.</p>
+    <button class="primary" onclick="contactWhatsApp('Hello WaLizz Textiles and Fashion! I would like to make an enquiry.')">
+      Chat on WhatsApp
+    </button>
+    <p>We look forward to serving you!</p>
+  </section>
+
+  <section id="admin" class="panel hidden">
+    <h2>Shop Admin</h2>
+    <p class="notice">
+      This is a starter preview, not a secure admin login.
+      Products added here are saved only in this browser.
+      Do not use this interface for private or sensitive information.
+      We'll connect secure authentication and shared storage next.
+    </p>
+
+    <h3>Add a Product</h3>
+    <form id="productForm">
+      <div class="form-grid">
+        <input id="pname" placeholder="Product name" required>
+        <select id="pcategory" required>
+          <option value="">Choose category</option>
+          <option>Vitenge - Cotton</option>
+          <option>Vitenge - Normal</option>
+          <option>School Uniform Materials</option>
+          <option>Other Materials</option>
+          <option>Sewing Notions</option>
+          <option>Ready-made Clothes</option>
+        </select>
+        <input id="pprice" type="number" min="0" step="0.01"
+          placeholder="Price in KSh" required>
+        <input id="pimage" type="url" placeholder="Product image URL (optional)">
+        <input id="pdescription" placeholder="Short description">
+      </div>
+      <p><button class="primary" type="submit">Add Product</button></p>
+    </form>
+
+    <h3>Manage Products</h3>
+    <div id="adminProducts"></div>
+  </section>
+</main>
+
+<footer>
+  <strong>WaLizz Textiles and Fashion</strong><br>
+  Your fabric, your style, your story.<br>
+  <span id="footerYear"></span>
+</footer>
+
+<script>
+  // IMPORTANT: Replace this with your shop's WhatsApp number.
+  // Use country code and digits only, without + or spaces.
+  // Example Kenya format: 2547XXXXXXXX
+  const SHOP_WHATSAPP = "2547XXXXXXXX";
+
+  const defaultProducts = [
+    {
+      id: 1,
+      name: "Beautiful Cotton Vitenge",
+      category: "Vitenge - Cotton",
+      price: 350,
+      description: "Colourful cotton fabric. Ask us about available designs.",
+      image: ""
+    },
+    {
+      id: 2,
+      name: "Classic Vitenge",
+      category: "Vitenge - Normal",
+      price: 250,
+      description: "Stylish prints for everyday fashion.",
+      image: ""
+    },
+    {
+      id: 3,
+      name: "School Uniform Material",
+      category: "School Uniform Materials",
+      price: 200,
+      description: "Contact us for colours and availability.",
+      image: ""
+    },
+    {
+      id: 4,
+      name: "Sewing Accessories",
+      category: "Sewing Notions",
+      price: 30,
+      description: "Ask about zips, needles, buttons and more.",
+      image: ""
+    }
+  ];
+
+  let products = loadProducts();
+
+  function loadProducts() {
+    try {
+      const saved = localStorage.getItem("walizz_products");
+      return saved ? JSON.parse(saved) : defaultProducts;
+    } catch (error) {
+      return defaultProducts;
+    }
+  }
+
+  function saveProducts() {
+    localStorage.setItem("walizz_products", JSON.stringify(products));
+  }
+
+  function contactWhatsApp(message) {
+    if (SHOP_WHATSAPP.includes("X")) {
+      alert("Please set SHOP_WHATSAPP in the code to your real business number first.");
+      return;
+    }
+    const url = "https://wa.me/" + SHOP_WHATSAPP +
+      "?text=" + encodeURIComponent(message);
+    window.open(url, "_blank", "noopener,noreferrer");
+  }
+
+  function showSection(id) {
+    ["store", "services", "contact", "admin"].forEach(section => {
+      document.getElementById(section).classList.toggle("hidden", section !== id);
+    });
+    document.getElementById(id).scrollIntoView({ behavior: "smooth" });
+  }
+
+  function showStore() { showSection("store"); }
+  function showServices() { showSection("services"); }
+  function showContact() { showSection("contact"); }
+  function showAdmin() { showSection("admin"); renderAdmin(); }
+
+  function escapeHTML(value) {
+    return String(value).replace(/[&<>"']/g, char => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;"
+    })[char]);
+  }
+
+  function renderProducts() {
+    const term = document.getElementById("search").value.toLowerCase();
+    const category = document.getElementById("category").value;
+    const filtered = products.filter(product =>
+      (category === "All" || product.category === category) &&
+      (product.name + " " + product.description + " " + product.category)
+        .toLowerCase().includes(term)
+    );
+
+    const container = document.getElementById("products");
+
+    if (!filtered.length) {
+      container.innerHTML = "<p>No products found. Try another search.</p>";
+      return;
+    }
+
+    container.innerHTML = filtered.map(product => {
+      const photo = product.image
+        ? `<img src="${escapeHTML(product.image)}" alt="${escapeHTML(product.name)}" loading="lazy" onerror="this.style.display='none'">`
+        : `<div style="height:140px;display:grid;place-items:center;background:#f3e7ed;font-size:44px" aria-label="Fabric placeholder">🧵</div>`;
+
+      return `
+        <article class="product">
+          ${photo}
+          <div class="product-info">
+            <span class="category">${escapeHTML(product.category)}</span>
+            <h3>${escapeHTML(product.name)}</h3>
+            <p>${escapeHTML(product.description)}</p>
+            <p class="price">KSh ${Number(product.price).toLocaleString("en-KE")}</p>
+            <button class="primary" onclick="orderProduct(${Number(product.id)})">
+              Order on WhatsApp
+            </button>
+          </div>
+        </article>`;
+    }).join("");
+  }
+
+  function orderProduct(id) {
+    const product = products.find(item => item.id === id);
+    if (!product) return;
+
+    contactWhatsApp(
+      "Hello WaLizz! I would like to order: " + product.name +
+      ". Listed price: KSh " + product.price +
+      ". Please confirm availability and delivery/pickup details."
+    );
+  }
+
+  document.getElementById("productForm").addEventListener("submit", event => {
+    event.preventDefault();
+
+    const product = {
+      id: Date.now(),
+      name: document.getElementById("pname").value.trim(),
+      category: document.getElementById("pcategory").value,
+      price: Number(document.getElementById("pprice").value),
+      image: document.getElementById("pimage").value.trim(),
+      description: document.getElementById("pdescription").value.trim()
+    };
+
+    if (!product.name || !product.category ||
+        !Number.isFinite(product.price) || product.price < 0) {
+      alert("Please enter a valid name, category and price.");
+      return;
+    }
+
+    products.unshift(product);
+    saveProducts();
+    event.target.reset();
+    renderProducts();
+    renderAdmin();
+    alert("Product added in this browser!");
+  });
+
+  function renderAdmin() {
+    const container = document.getElementById("adminProducts");
+    container.innerHTML = products.map(product => `
+      <div class="admin-product">
+        <span>${escapeHTML(product.name)} — KSh ${Number(product.price).toLocaleString("en-KE")}</span>
+        <button onclick="deleteProduct(${Number(product.id)})">Delete</button>
+      </div>
+    `).join("") || "<p>No products yet.</p>";
+  }
+
+  function deleteProduct(id) {
+    if (!confirm("Delete this product?")) return;
+    products = products.filter(product => product.id !== id);
+    saveProducts();
+    renderProducts();
+    renderAdmin();
+  }
+
+  document.getElementById("footerYear").textContent =
+    "© " + new Date().getFullYear() + " WaLizz Textiles and Fashion";
+
+  renderProducts();
+</script>
+</body>
+</html>
